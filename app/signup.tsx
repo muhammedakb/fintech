@@ -84,6 +84,7 @@ const Signup = () => {
             { marginBottom: 20 },
           ]}
           onPress={onSignup}
+          disabled={phoneNumber === ''}
         >
           <Text style={defaultStyles.buttonText}>Sign up</Text>
         </TouchableOpacity>

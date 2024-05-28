@@ -1,8 +1,9 @@
+import { defaultStyles } from '@/constants/Styles';
 import { View, Text } from 'react-native';
 
 const Help = () => {
   return (
-    <View>
+    <View style={defaultStyles.container}>
       <Text>Help</Text>
     </View>
   );
