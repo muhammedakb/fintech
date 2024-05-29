@@ -1,5 +1,6 @@
 import Dropdown from '@/components/Dropdown';
 import RoundButton from '@/components/RoundButton';
+import WidgetList from '@/components/SortableList/WidgetList';
 import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
 import { useBalanceStore } from '@/store/balanceStore';
@@ -7,9 +8,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { View, StyleSheet, ScrollView, Text } from 'react-native';
 
 const Home = () => {
-  const { balance, clearTransactions, runTransaction, transactions } =
+  const { balance, currency, clearTransactions, runTransaction, transactions } =
     useBalanceStore();
-  const currency = '₺';
 
   const onAddMoney = () => {
     runTransaction({
@@ -63,7 +63,7 @@ const Home = () => {
             <View style={{ flex: 1 }}>
               <Text style={{ fontWeight: '400' }}>{transaction.title}</Text>
               <Text style={{ color: Colors.gray, fontSize: 12 }}>
-                {transaction.date.toLocaleDateString()}
+                {transaction.date.toString()}
               </Text>
             </View>
             <Text>
@@ -73,6 +73,8 @@ const Home = () => {
           </View>
         ))}
       </View>
+      <Text style={defaultStyles.sectionHeader}>Widgets</Text>
+      <WidgetList />
     </ScrollView>
   );
 };

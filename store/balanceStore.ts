@@ -10,6 +10,7 @@ export interface Transaction {
 }
 
 export interface BalanceState {
+  currency: string;
   transactions: Array<Transaction>;
   runTransaction: (transaction: Transaction) => void;
   balance: () => number;
@@ -26,6 +27,7 @@ export const useBalanceStore = create<BalanceState>()(
         }));
       },
       balance: () => get().transactions.reduce((acc, t) => acc + t.amount, 0),
+      currency: '₺',
       clearTransactions: () => {
         set({ transactions: [] });
       },
