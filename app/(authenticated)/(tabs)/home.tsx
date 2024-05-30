@@ -5,11 +5,14 @@ import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
 import { useBalanceStore } from '@/store/balanceStore';
 import { Ionicons } from '@expo/vector-icons';
-import { View, StyleSheet, ScrollView, Text } from 'react-native';
+import { useHeaderHeight } from '@react-navigation/elements';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 const Home = () => {
   const { balance, currency, clearTransactions, runTransaction, transactions } =
     useBalanceStore();
+
+  const headerHeight = useHeaderHeight();
 
   const onAddMoney = () => {
     runTransaction({
@@ -21,7 +24,13 @@ const Home = () => {
   };
 
   return (
-    <ScrollView style={{ backgroundColor: Colors.background }}>
+    <ScrollView
+      style={{ backgroundColor: Colors.background }}
+      contentContainerStyle={{
+        paddingTop: headerHeight,
+        // paddingBottom: 80,
+      }}
+    >
       <View style={styles.account}>
         <View style={styles.row}>
           <Text style={styles.balance}>{balance()}</Text>
