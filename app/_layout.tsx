@@ -7,11 +7,12 @@ import { Link, Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import * as SecureStore from 'expo-secure-store';
 import 'react-native-reanimated';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import HeaderArrowBack from '@/components/HeaderArrowBack';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -92,11 +93,7 @@ const InitialLayout = () => {
           headerShadowVisible: false,
           headerStyle: { backgroundColor: Colors.background },
           headerLeft: (props) => {
-            return (
-              <TouchableOpacity onPress={router.back}>
-                <Ionicons name='arrow-back' size={34} color={Colors.dark} />
-              </TouchableOpacity>
-            );
+            return <HeaderArrowBack />;
           },
         }}
       />
@@ -108,11 +105,7 @@ const InitialLayout = () => {
           headerShadowVisible: false,
           headerStyle: { backgroundColor: Colors.background },
           headerLeft: (props) => {
-            return (
-              <TouchableOpacity onPress={router.back}>
-                <Ionicons name='arrow-back' size={34} color={Colors.dark} />
-              </TouchableOpacity>
-            );
+            return <HeaderArrowBack />;
           },
           headerRight: () => (
             <Link asChild href={'/help'}>
@@ -139,11 +132,7 @@ const InitialLayout = () => {
           headerShadowVisible: false,
           headerStyle: { backgroundColor: Colors.background },
           headerLeft: (props) => {
-            return (
-              <TouchableOpacity onPress={router.back}>
-                <Ionicons name='arrow-back' size={34} color={Colors.dark} />
-              </TouchableOpacity>
-            );
+            return <HeaderArrowBack />;
           },
         }}
       />
@@ -151,6 +140,31 @@ const InitialLayout = () => {
       <Stack.Screen
         name='(authenticated)/(tabs)'
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='(authenticated)/crypto/[id]'
+        options={{
+          title: '',
+          headerLeft: (props) => {
+            return <HeaderArrowBack />;
+          },
+          headerLargeTitle: true,
+          headerTransparent: true,
+          headerRight: () => (
+            <View style={{ flexDirection: 'row', gap: 10 }}>
+              <TouchableOpacity>
+                <Ionicons
+                  name='notifications-outline'
+                  color={Colors.dark}
+                  size={30}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Ionicons name='star-outline' color={Colors.dark} size={30} />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
       />
     </Stack>
   );

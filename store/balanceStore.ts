@@ -27,7 +27,7 @@ export const useBalanceStore = create<BalanceState>()(
         }));
       },
       balance: () => get().transactions.reduce((acc, t) => acc + t.amount, 0),
-      currency: '₺',
+      currency: '€',
       clearTransactions: () => {
         set({ transactions: [] });
       },
