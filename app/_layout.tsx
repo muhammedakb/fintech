@@ -77,6 +77,7 @@ const InitialLayout = () => {
   }, [isSignedIn]);
 
   if (!loaded || !isLoaded) {
+    // TODO: set skeleton or etc.
     return <Text>Loading...</Text>;
   }
 
