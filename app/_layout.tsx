@@ -1,18 +1,26 @@
+import { useEffect } from 'react';
+
+import { Text, TouchableOpacity, View } from 'react-native';
+
+import HeaderArrowBack from '@/components/HeaderArrowBack';
 import Colors from '@/constants/Colors';
+import { UserInactivityController } from '@/context/UserInactivity';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
+
 import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import { useFonts } from 'expo-font';
 import { Link, Stack, useRouter, useSegments } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import * as SecureStore from 'expo-secure-store';
+
 import 'react-native-reanimated';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import HeaderArrowBack from '@/components/HeaderArrowBack';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -167,6 +175,13 @@ const InitialLayout = () => {
           ),
         }}
       />
+      <Stack.Screen
+        name='(authenticated)/(modals)/lock'
+        options={{
+          headerShown: false,
+          animation: 'none',
+        }}
+      />
     </Stack>
   );
 };
@@ -177,10 +192,12 @@ const RootLayoutNav = () => (
     tokenCache={tokenCache}
   >
     <QueryClientProvider client={queryClient}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <StatusBar style='light' />
-        <InitialLayout />
-      </GestureHandlerRootView>
+      <UserInactivityController>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <StatusBar style='light' />
+          <InitialLayout />
+        </GestureHandlerRootView>
+      </UserInactivityController>
     </QueryClientProvider>
   </ClerkProvider>
 );
