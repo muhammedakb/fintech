@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 
 import HeaderArrowBack from '@/components/HeaderArrowBack';
 import Colors from '@/constants/Colors';
@@ -85,8 +85,11 @@ const InitialLayout = () => {
   }, [isSignedIn]);
 
   if (!loaded || !isLoaded) {
-    // TODO: set skeleton or etc.
-    return <Text>Loading...</Text>;
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size='large' color={Colors.primary} />
+      </View>
+    );
   }
 
   console.log(CLERK_PUBLISHABLE_KEY);

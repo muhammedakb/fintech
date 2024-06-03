@@ -26,7 +26,7 @@ export const UserInactivityController = ({
     return () => {
       subscription.remove();
     };
-  }, []);
+  }, [isSignedIn]);
 
   const handleAppStateChange = async (nextAppState: AppStateStatus) => {
     if (nextAppState === 'background') {
