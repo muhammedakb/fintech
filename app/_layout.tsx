@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 
-import HeaderArrowBack from '@/components/HeaderArrowBack';
+import HeaderLeftWithIcon from '@/components/HeaderLeftWithIcon';
 import Colors from '@/constants/Colors';
 import { UserInactivityController } from '@/context/UserInactivity';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
@@ -104,9 +104,7 @@ const InitialLayout = () => {
           headerBackTitle: '',
           headerShadowVisible: false,
           headerStyle: { backgroundColor: Colors.background },
-          headerLeft: (props) => {
-            return <HeaderArrowBack />;
-          },
+          headerLeft: (props) => <HeaderLeftWithIcon />,
         }}
       />
       <Stack.Screen
@@ -116,9 +114,7 @@ const InitialLayout = () => {
           headerBackTitle: '',
           headerShadowVisible: false,
           headerStyle: { backgroundColor: Colors.background },
-          headerLeft: (props) => {
-            return <HeaderArrowBack />;
-          },
+          headerLeft: (props) => <HeaderLeftWithIcon />,
           headerRight: () => (
             <Link asChild href={'/help'}>
               <TouchableOpacity>
@@ -143,9 +139,7 @@ const InitialLayout = () => {
           headerBackTitle: '',
           headerShadowVisible: false,
           headerStyle: { backgroundColor: Colors.background },
-          headerLeft: (props) => {
-            return <HeaderArrowBack />;
-          },
+          headerLeft: () => <HeaderLeftWithIcon />,
         }}
       />
 
@@ -157,9 +151,7 @@ const InitialLayout = () => {
         name='(authenticated)/crypto/[id]'
         options={{
           title: '',
-          headerLeft: (props) => {
-            return <HeaderArrowBack />;
-          },
+          headerLeft: () => <HeaderLeftWithIcon />,
           headerLargeTitle: true,
           headerTransparent: true,
           headerRight: () => (
@@ -183,6 +175,18 @@ const InitialLayout = () => {
         options={{
           headerShown: false,
           animation: 'none',
+        }}
+      />
+      <Stack.Screen
+        name='(authenticated)/(modals)/account'
+        options={{
+          presentation: 'transparentModal',
+          animation: 'fade',
+          title: '',
+          headerTransparent: true,
+          headerLeft: () => (
+            <HeaderLeftWithIcon color={'#fff'} iconName={'close-outline'} />
+          ),
         }}
       />
     </Stack>

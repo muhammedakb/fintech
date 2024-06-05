@@ -10,17 +10,21 @@ import { BlurView } from 'expo-blur';
 import Colors from '@/constants/Colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { Link } from 'expo-router';
 
 const CustomHeader = () => {
   const { top } = useSafeAreaInsets();
   return (
     <BlurView intensity={80} tint='extraLight' style={{ paddingTop: top }}>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.roundBtn}>
-          <Text style={{ color: '#fff', fontWeight: '500', fontSize: 16 }}>
-            SG
-          </Text>
-        </TouchableOpacity>
+        <Link asChild href={'/(authenticated)/(modals)/account'}>
+          <TouchableOpacity style={styles.roundBtn}>
+            {/* TODO: set name and surname first character */}
+            <Text style={{ color: '#fff', fontWeight: '500', fontSize: 16 }}>
+              SG
+            </Text>
+          </TouchableOpacity>
+        </Link>
         <View style={styles.searchSection}>
           <Ionicons
             style={styles.searchIcon}
