@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Alert,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { getAppIcon, setAppIcon } from 'expo-dynamic-app-icon';
@@ -39,14 +40,29 @@ const Account = () => {
   const [edit, setEdit] = useState(false);
   const [activeIcon, setActiveIcon] = useState<IconName>('Default');
 
+  const areNameSurnameChanged =
+    user?.firstName !== firstName || user?.lastName !== lastName;
+
   const onSaveUser = async () => {
     try {
-      await user?.update({ firstName, lastName });
+      if (areNameSurnameChanged) {
+        await user?.update({ firstName, lastName });
+      } else {
+        Alert.alert('Nothing changed!', 'Please change name or surname');
+      }
     } catch (error) {
       // pass
     } finally {
-      setEdit(false);
+      if (areNameSurnameChanged) {
+        setEdit(false);
+      }
     }
+  };
+
+  const onClose = () => {
+    setFirstName(user?.firstName ?? '');
+    setLastName(user?.lastName ?? '');
+    setEdit(false);
   };
 
   const onCaptureImage = async () => {
@@ -107,6 +123,9 @@ const Account = () => {
                 onChangeText={setLastName}
                 style={[styles.inputField]}
               />
+              <TouchableOpacity onPress={onClose}>
+                <Ionicons name='close' size={24} color={'#fff'} />
+              </TouchableOpacity>
               <TouchableOpacity onPress={onSaveUser}>
                 <Ionicons name='checkmark-outline' size={24} color={'#fff'} />
               </TouchableOpacity>
@@ -117,7 +136,7 @@ const Account = () => {
                 {firstName} {lastName}
               </Text>
               <TouchableOpacity onPress={() => setEdit(true)}>
-                <Ionicons name='ellipsis-horizontal' size={24} color={'#fff'} />
+                <Ionicons name='pencil' size={24} color={'#fff'} />
               </TouchableOpacity>
             </View>
           )}
