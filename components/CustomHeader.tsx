@@ -11,17 +11,28 @@ import Colors from '@/constants/Colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
+import { useUser } from '@clerk/clerk-expo';
+import { handleFirstLetters } from '@/utils/string';
 
 const CustomHeader = () => {
   const { top } = useSafeAreaInsets();
+  const { user } = useUser();
+  const userName = handleFirstLetters(user?.fullName);
+
   return (
     <BlurView intensity={80} tint='extraLight' style={{ paddingTop: top }}>
       <View style={styles.container}>
         <Link asChild href={'/(authenticated)/(modals)/account'}>
           <TouchableOpacity style={styles.roundBtn}>
-            {/* TODO: set name and surname first character */}
-            <Text style={{ color: '#fff', fontWeight: '500', fontSize: 16 }}>
-              SG
+            <Text
+              style={{
+                color: '#fff',
+                fontWeight: '500',
+                fontSize: 16,
+                textTransform: 'uppercase',
+              }}
+            >
+              {userName}
             </Text>
           </TouchableOpacity>
         </Link>
