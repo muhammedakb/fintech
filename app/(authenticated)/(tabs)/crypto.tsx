@@ -8,6 +8,7 @@ import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
 import { Ionicons } from '@expo/vector-icons';
 import { CryptoListLoader } from '@/components/CryptoListLoader';
+import { Loader, SkeletonLoader } from '@/components/SkeletonLoader';
 
 const Crypto = () => {
   const headerHeight = useHeaderHeight();
@@ -19,7 +20,7 @@ const Crypto = () => {
 
   const ids = data?.map((currency) => currency.id).join(',');
 
-  const { data: infoData } = useQuery({
+  const { data: infoData, isLoading: isImgLoading } = useQuery({
     queryKey: ['info', ids],
     queryFn: () => fetch(`/api/info?ids=${ids}`).then((res) => res.json()),
     enabled: !!ids,
@@ -45,10 +46,18 @@ const Crypto = () => {
                     alignItems: 'center',
                   }}
                 >
-                  <Image
-                    source={{ uri: infoData?.[currency.id].logo }}
-                    style={{ width: 40, height: 40 }}
-                  />
+                  {isImgLoading ? (
+                    <SkeletonLoader>
+                      <Loader
+                        style={{ width: 40, height: 40, borderRadius: 20 }}
+                      />
+                    </SkeletonLoader>
+                  ) : (
+                    <Image
+                      source={{ uri: infoData?.[currency.id].logo }}
+                      style={{ width: 40, height: 40 }}
+                    />
+                  )}
                   <View style={{ flex: 1, gap: 6 }}>
                     <Text style={{ fontWeight: '600', color: Colors.dark }}>
                       {currency.name}
