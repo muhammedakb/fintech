@@ -1,9 +1,8 @@
-import { Text } from 'react-native';
-import { Tabs } from 'expo-router';
-import { FontAwesome } from '@expo/vector-icons';
-import Colors from '@/constants/Colors';
-import { BlurView } from 'expo-blur';
 import CustomHeader from '@/components/CustomHeader';
+import Colors from '@/constants/Colors';
+import { FontAwesome } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
+import { Tabs } from 'expo-router';
 
 const Layout = () => {
   return (
@@ -47,6 +46,8 @@ const Layout = () => {
           tabBarIcon: ({ color, size, focused }) => (
             <FontAwesome name='line-chart' size={size} color={color} />
           ),
+          header: () => <CustomHeader />,
+          headerTransparent: true,
         }}
       />
 
@@ -57,6 +58,8 @@ const Layout = () => {
           tabBarIcon: ({ color, size, focused }) => (
             <FontAwesome name='exchange' size={size} color={color} />
           ),
+          header: () => <CustomHeader />,
+          headerTransparent: true,
         }}
       />
 
@@ -79,6 +82,8 @@ const Layout = () => {
           tabBarIcon: ({ color, size, focused }) => (
             <FontAwesome name='th' size={size} color={color} />
           ),
+          header: () => <CustomHeader />,
+          headerTransparent: true,
         }}
       />
     </Tabs>
