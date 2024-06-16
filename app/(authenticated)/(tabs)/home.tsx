@@ -56,6 +56,7 @@ const Home = () => {
             No transactions yet
           </Text>
         )}
+        {/* TODO: pagination or detailed page */}
         {transactions.map((transaction) => (
           <View
             key={transaction.id}

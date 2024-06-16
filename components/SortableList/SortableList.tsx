@@ -36,7 +36,7 @@ const List = ({ children, editing, onDragEnd }: ListProps) => {
       contentContainerStyle={{
         height: Math.ceil(children.length / COL) * SIZE,
       }}
-      style={{ paddingTop: 15 }}
+      style={{ paddingTop: 15, paddingBottom: 55 }}
       showsVerticalScrollIndicator={false}
       bounces={false}
       scrollEventThrottle={16}
