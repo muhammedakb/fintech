@@ -3,6 +3,7 @@ import { defaultStyles } from '@/constants/Styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import PaginationDropdown from './Dropdown';
 
 type PaginationProps = {
   currentPage: number;
@@ -34,6 +35,11 @@ const Pagination = ({
     }
   };
 
+  const handleChange = (num: number) => {
+    setPageNumber(num);
+    onPageChange(num);
+  };
+
   return (
     <View
       style={[
@@ -55,9 +61,18 @@ const Pagination = ({
       </TouchableOpacity>
       <View>
         <Text>
-          {totalPages === 0 ? 'No data' : `Page ${pageNumber} / ${totalPages}`}
+          {totalPages === 0 ? (
+            'No data'
+          ) : (
+            <PaginationDropdown
+              pageNumber={pageNumber}
+              onPageChange={handleChange}
+              totalPages={totalPages}
+            />
+          )}
         </Text>
       </View>
+
       <TouchableOpacity disabled={forwardDisabled} onPress={handleNext}>
         <Ionicons
           name='chevron-forward-outline'
